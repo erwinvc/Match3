@@ -1,0 +1,49 @@
+# =============== #
+# Unity generated #
+# =============== #
+/Match3/UnityGenerated/
+/Match3/Library/
+/Match3/Temp/
+/Match3/temp/
+/Match3/Obj/
+/Match3/Logs/
+/Match3/Build/
+/Match3/Logs/
+/Match3/Assets/AssetStoreTools*
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+/Match3/.vs/
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+.consulo/
+*.tmp
+*.pdb
+
+# Unity3D generated meta files
+*.pidb.meta
+
+# Unity3D Generated File On Crash Reports
+sysinfo.txt
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db*
+Thumbs.db*
+/Build/
