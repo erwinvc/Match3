@@ -119,14 +119,14 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Size: 103788.9
+    - _Size: 88360.67
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StarAmount: 8
-    - _StarIntensity: 144.42575
-    - _StarsTemperature: -4
+    - _StarIntensity: 110.66053
+    - _StarsTemperature: -3.398155
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

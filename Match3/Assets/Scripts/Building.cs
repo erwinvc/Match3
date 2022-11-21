@@ -34,7 +34,6 @@ public class Building : MonoBehaviour {
         if(!shouldFade) return;
         float originalY = transform.position.y;
         transform.position = new Vector3(transform.position.x, -15.0f - (storyCount * 12.0f), transform.position.z);
-        print(fadeInDuration);
         transform.DOLocalMoveY(originalY, fadeInDuration).SetEase(Ease.OutCirc);
     }
 }

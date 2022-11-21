@@ -10,7 +10,7 @@ namespace LuxURPEssentials
 	public class LuxURPEssentialsShowWelcome : MonoBehaviour
 	{
 	    
-		private bool showed = false;
+		//private bool showed = false;
 
 		static LuxURPEssentialsShowWelcome()
 		{

@@ -13,16 +13,20 @@ public class Element : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     public int gridY;
     public int gridX;
     public float velocity;
-
     public delegate void OnDrag(Element element, int deltaX, int deltaY);
     [NonSerialized] public OnDrag onDrag;
+    [NonSerialized] public Animator animator;
 
     public bool isDragging = false;
     Vector2 clickPosition = Vector2.zero;
 
     public void Start() {
+        animator = GetComponentInChildren<Animator>();
+        //GetComponent<UnityEngine.UI.Image>().color = ElementTypeToColor(type);
+    }
+
+    public void SetRandomType() {
         type = (ElementType)UnityEngine.Random.Range(0, 7);
-        GetComponent<UnityEngine.UI.Image>().color = ElementTypeToColor(type);
     }
 
     public void SetTargetPosition(int x, int y, int initialVelocity = -100) {

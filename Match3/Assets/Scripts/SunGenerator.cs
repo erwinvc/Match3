@@ -11,7 +11,9 @@ public class SunGenerator : WorldGenerationObject {
     public override void Generate(WorldGenerationData data, bool isActive, bool generateNewMaterials) {
         gameObject.SetActive(isActive);
         if(!isActive) return;
-        transform.localPosition = new Vector3(Random.Range(-minMaxX, minMaxX), Random.Range(minY, maxY), 80f);
+        float scale = Random.Range(40f, 60f);
+        transform.localScale = new Vector3(scale, scale, scale);
+        transform.localPosition = new Vector3(Random.Range(-minMaxX, minMaxX), Random.Range(minY, maxY), 63f);
         sunMaterial.SetFloat("_LineFadeHeight", Utils.Remap(transform.localPosition.y, minY, maxY, 3f, 5f));
         sunMaterial.SetFloat("_ColorFade", Utils.Remap(transform.localPosition.y, minY, maxY, -0.3f, 0.0f));
       //  if (Utils.RandomBool()) {

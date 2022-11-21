@@ -16,17 +16,25 @@ public class Match3 : MonoBehaviour {
 
     private static Match3 _Instance;
 
-    public static Color ElementTypeToColor(ElementType type) {
+    public GameObject elementWhite;
+    public GameObject elementYellow;
+    public GameObject elementGreen;
+    public GameObject elementOrange;
+    public GameObject elementRed;
+    public GameObject elementPurple;
+    public GameObject elementBlue;
+
+    public GameObject ElementTypeToElementPrefab(ElementType type) {
         switch (type) {
-            case ElementType.WHITE: return Color.white;
-            case ElementType.YELLOW: return Color.yellow;
-            case ElementType.GREEN: return Color.green;
-            case ElementType.ORANGE: return new Color(1.0f, 0.65f, 0.0f);
-            case ElementType.RED: return Color.red;
-            case ElementType.PURPLE: return Color.magenta;
-            case ElementType.BLUE: return Color.blue;
+            case ElementType.WHITE: return elementWhite;
+            case ElementType.YELLOW: return elementYellow;
+            case ElementType.GREEN: return elementGreen;
+            case ElementType.ORANGE: return elementOrange;
+            case ElementType.RED: return elementRed;
+            case ElementType.PURPLE: return elementPurple;
+            case ElementType.BLUE: return elementBlue;
         }
-        return Color.white;
+        return null;
     }
 
     int totalWidth;
@@ -54,7 +62,7 @@ public class Match3 : MonoBehaviour {
         halfTotalHeight = totalHeight / 2;
         halfElementSize = elementSize / 2;
 
-        gridPanel.transform.localPosition = new Vector3(-totalWidth / 2 + halfElementSize, -totalHeight / 2 + halfElementSize);
+        gridPanel.transform.localPosition = new Vector3(-totalWidth / 2 + halfElementSize, -totalHeight / 2 + halfElementSize - 100);
         if (elements != null) {
             foreach (Element element in elements) if (element != null) Destroy(element.gameObject);
         }
@@ -104,21 +112,41 @@ public class Match3 : MonoBehaviour {
         return null;
     }
 
+    private Element selectedElement;
+    private void SelectElement(Element element) {
+        if (element == selectedElement) element = null;
+        if (selectedElement != null) {
+            selectedElement.animator.SetBool("IsSelected", false);
+        }
+
+        selectedElement = element;
+        if (selectedElement != null) {
+            element.animator.SetBool("IsSelected", true);
+            element.animator.Play("Rotating");
+        }
+    }
+
     private void CreateNewElement(int x, int y, int spawnHeight) {
         Element element = Instantiate(elementPrefab, gridPanel).GetComponent<Element>();
+        element.SetRandomType();
+        Instantiate(ElementTypeToElementPrefab(element.type), element.transform);
         element.transform.localPosition = new Vector2(x * elementSize, (spawnHeight) * elementSize + totalHeight);
         element.SetTargetPosition(x, y, 0);
         elements[x, y] = element;
         element.onDrag = ElementOnDrag;
         Button button = element.gameObject.AddComponent<Button>();
-        //button.onClick.AddListener(() => {
-        //    for(int y = element.gridY; y < totalHeight; y++) {
-        //        Element e = GetElement(element.gridX, y);
-        //        if (e == null) return;
-        //        e.frozen = false;
-        //        e.velocity = 1000;
-        //    }
-        //});
+        button.onClick.AddListener(() => {
+            Element e = GetElement(element.gridX, element.gridY);
+            if (!e.animator) return;
+            SelectElement(e);
+
+            //for (int y = element.gridY; y < totalHeight; y++) {
+            //    Element e = GetElement(element.gridX, y);
+            //    if (e == null) return;
+            //    e.frozen = false;
+            //    e.velocity = 1000;
+            //}
+        });
     }
     private void RegisterElementForRemoval(int x, int y) {
         elementsAlreadyInGroup.Add(x + y * gridWidth);

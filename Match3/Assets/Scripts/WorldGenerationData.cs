@@ -16,12 +16,13 @@ public class WorldGenerationData {
     public Color colorSecondary;
     public WorldGenerationType generationType;
 
+
     public static WorldGenerationData GenerateRandom() {
         WorldGenerationData data = new WorldGenerationData();
         float hue = UnityEngine.Random.Range(0.0f, 1.0f);
         float offset = UnityEngine.Random.Range(0.1f, 0.25f);
         bool addition = Utils.RandomBool();
-        float complimentaryHue = (hue + (addition ? offset : -offset)) % 1.0f;
+        float complimentaryHue = Mathf.Abs((hue + (addition ? offset : -offset)) % 1.0f);
         data.seed = UnityEngine.Random.Range(-5000, 5000);
         data.huePrimary = hue;
         data.hueSecondary = complimentaryHue;

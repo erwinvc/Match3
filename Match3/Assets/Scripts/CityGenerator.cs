@@ -25,6 +25,11 @@ public class CityGenerator : WorldGenerationObject {
     [NonSerialized]
     private Vector3 cityCenterPosition = new Vector3(0.0f, 0.0f, 50.0f);
 
+    [Space]
+    [Header("Last generation values")]
+    [NotEditable] public float skylineCenterDistance;
+    [NotEditable] public int buildingCount;
+    [NotEditable] public float emissionIntensityOffset;
 
     public override bool ShouldGenerate(WorldGenerationData data) {
         return true;
@@ -47,7 +52,8 @@ public class CityGenerator : WorldGenerationObject {
         material.SetTexture("_Albedo", buildingTexture.albedo);
         material.SetTexture("_Normal", buildingTexture.normal);
         material.SetFloat("_ColorLerp", UnityEngine.Random.Range(9.0f, 11.0f));
-        material.SetFloat("_EmissionAmount", UnityEngine.Random.Range(10f, 40f) + emissionIntensityOffset);
+
+        material.SetFloat("_EmissionAmount", UnityEngine.Random.Range(10f, 30f) + emissionIntensityOffset);
 
         material.SetColor("_ColorPrimary", color1);
         material.SetColor("_ColorSecondary", color2);
@@ -66,12 +72,12 @@ public class CityGenerator : WorldGenerationObject {
     public override void Generate(WorldGenerationData data, bool isActive, bool generateNewMaterials) {
         Cleanup();
         if (!isActive) return;
-        float emissionIntensityOffset = UnityEngine.Random.Range(0f, 50f);
         int maxIterations = 10000;
         int iterations = 0;
         int count = 0;
-        float skylineCenterDistance = UnityEngine.Random.Range(minSkylineCenterDistance, maxSkylineCenterDistance);
-        int buildingCount = UnityEngine.Random.Range(minBuildingCount, maxBuildingCount);
+        emissionIntensityOffset = UnityEngine.Random.Range(0f, 35f);
+        skylineCenterDistance = UnityEngine.Random.Range(minSkylineCenterDistance, maxSkylineCenterDistance);
+        buildingCount = UnityEngine.Random.Range(minBuildingCount, maxBuildingCount);
         while (count < buildingCount && iterations < maxIterations) {
             Vector3 randomScale = new Vector3(randomSizeCurve.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f)), 1.0f, randomSizeCurve.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f)));
             float fadeInDuration = UnityEngine.Random.Range(1.8f, 2.2f);
